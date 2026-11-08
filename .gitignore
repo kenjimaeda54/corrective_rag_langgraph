@@ -11,3 +11,6 @@ wheels/
 
 # variables 
 .env
+
+#banco
+.chroma_db/
