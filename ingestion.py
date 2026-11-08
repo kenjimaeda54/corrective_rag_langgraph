@@ -32,17 +32,16 @@ text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
     chunk_size=200, chunk_overlap=0
 )
 docs_split = text_splitter.split_documents(docs_list)
-
-chroma_db = Chroma.from_documents(
-    collection_name="chroma_rag",
-    documents=docs_split,
-    embedding=embeddings,
-    persist_directory="./.chroma_db"
-)
-
-# retriever = Chroma(
+# chroma_db = Chroma.from_documents(
 #     collection_name="chroma_rag",
-#     embedding_function=embeddings,
+#     documents=docs_split,
+#     embedding=embeddings,
 #     persist_directory="./.chroma_db"
-# ).as_retriever()
-#
+# )
+
+retriever = Chroma(
+    collection_name="chroma_rag",
+    embedding_function=embeddings,
+    persist_directory="./.chroma_db"
+).as_retriever()
+
