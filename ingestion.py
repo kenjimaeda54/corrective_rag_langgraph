@@ -21,24 +21,28 @@ embeddings = HuggingFaceEmbeddings(
 
 
 docs = [WebBaseLoader(url).load() for url in urls]
+
+#docs_list e preciso porque o docs acima se torna um array de documentos ja que possuimos varias urls
 docs_list = [doc for sublist in docs for doc in sublist]
 
-text_splitter =  RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-    chunk_size=250,chunk_overlap=0
+
+#Usar o from_tiktoken esta medindo o tamanho dos chunks em tokens, e nao em caracteres.
+#Mede em tokens, contados pelo tiktoken. Cada chunk tem no máximo 200 tokens, sem repetição entre chunks.
+text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
+    chunk_size=200, chunk_overlap=0
 )
 docs_split = text_splitter.split_documents(docs_list)
 
 # chroma_db = Chroma.from_documents(
-#     collection_name="rag_chroma",
+#     collection_name="chroma_rag",
 #     documents=docs_split,
 #     embedding=embeddings,
 #     persist_directory="./.chroma_db"
 # )
 
 retriever = Chroma(
-    collection_name="rag_chroma",
-    persist_directory="./.chroma_db",
-    embedding_function=embeddings
+    collection_name="chroma_rag",
+    embedding_function=embeddings,
+    persist_directory="./.chroma_db"
 ).as_retriever()
-
 
