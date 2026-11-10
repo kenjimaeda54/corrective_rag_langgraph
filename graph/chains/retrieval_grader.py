@@ -43,5 +43,7 @@ template_prompt = ChatPromptTemplate(
     ]
 )
 
+#vou pegar o template_prompt e passar para o structed_output, que é o método que
+# garante que a resposta do modelo siga o formato definido na classe GradeDocuments.
 retrieval_grader = template_prompt | structed_output
 
