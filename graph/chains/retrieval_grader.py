@@ -43,5 +43,5 @@ template_prompt = ChatPromptTemplate(
     ]
 )
 
-retriever_grader = template_prompt | structed_output
+retrieval_grader = template_prompt | structed_output
 

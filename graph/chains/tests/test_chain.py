@@ -1,4 +1,4 @@
-from graph.chains.retriver_grader import GradeDocuments, retriever_grader
+from graph.chains.retrieval_grader import GradeDocuments, retrieval_grader
 from ingestion import retriever
 
 
@@ -7,7 +7,7 @@ def test_retriever_document_yes():
      docs = retriever.invoke(question)
      doc_txt = docs[1].page_content
 
-     binary_code: GradeDocuments = retriever_grader.invoke(
+     binary_code: GradeDocuments = retrieval_grader.invoke(
          {"question": question, "document": doc_txt}
      )
 
@@ -19,7 +19,7 @@ def test_retriever_document_no():
      docs = retriever.invoke(question)
      doc_txt = docs[1].page_content
 
-     binary_code: GradeDocuments = retriever_grader.invoke(
+     binary_code: GradeDocuments = retrieval_grader.invoke(
           {"question": question, "document": doc_txt}
      )
 
